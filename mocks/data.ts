@@ -1,0 +1,92 @@
+import { Post, Match } from '@/types';
+
+export const currentUser = {
+  id: '0',
+  name: 'John Deo',
+  role: 'Entrepreneur' as const,
+  photo: 'https://i.pravatar.cc/150?img=12',
+  verified: true,
+  bio: 'Building the next unicorn',
+  lookingFor: ['Technical Co-Founder', 'Angel Investors'],
+  skills: ['Product Strategy', 'Business Development'],
+};
+
+export const mockPosts: Post[] = [
+  {
+    id: '1',
+    user: {
+      id: '1',
+      name: 'Alex Rivera',
+      role: 'Entrepreneur',
+      photo: 'https://i.pravatar.cc/150?img=33',
+      verified: true,
+      bio: 'Serial entrepreneur',
+      lookingFor: [],
+      skills: [],
+    },
+    content: 'Just shipped our v2.0! Completely rebuilt the onboarding flow based on user feedback. Conversion rate jumped from 12% to 34% in just 2 weeks.\n\nLesson: Listen to your users, they know what they need.',
+    hashtags: ['#ProductLaunch', '#StartupGrowth', '#UX'],
+    likes: 60,
+    comments: 15,
+    timestamp: 'about 8 hours ago',
+    liked: false,
+  },
+  {
+    id: '2',
+    user: {
+      id: '2',
+      name: 'Ryan Mitchell',
+      role: 'Investor',
+      photo: 'https://i.pravatar.cc/150?img=14',
+      verified: true,
+      bio: 'Angel investor',
+      lookingFor: [],
+      skills: [],
+    },
+    content: 'Hot take: Most startups fail not because of bad ideas, but because founders give up too early.\n\nThe difference between success and failure is often just 6 more months of persistence. Keep going. 💪',
+    hashtags: [],
+    likes: 124,
+    comments: 28,
+    timestamp: 'about 9 hours ago',
+    liked: false,
+  },
+];
+
+export const mockMatches: Match[] = [
+  {
+    id: '3',
+    name: 'Alex Chen',
+    role: 'Entrepreneur',
+    photo: 'https://i.pravatar.cc/300?img=15',
+    verified: true,
+    bio: 'Serial entrepreneur with a passion for fintech. Looking to build the next unicorn.',
+    lookingFor: ['Technical Co-founder', 'AI/ML Expert'],
+    skills: ['Business Strategy', 'Marketing'],
+    matchPercentage: 88,
+    additionalSkills: 3,
+  },
+  {
+    id: '4',
+    name: 'Sarah Johnson',
+    role: 'Entrepreneur',
+    photo: 'https://i.pravatar.cc/300?img=45',
+    verified: true,
+    bio: 'Ex-Google engineer building AI-powered tools for startups.',
+    lookingFor: ['Business Co-founder', 'Angel Investors'],
+    skills: ['AI/ML', 'Python', 'React'],
+    matchPercentage: 92,
+    additionalSkills: 5,
+  },
+  {
+    id: '5',
+    name: 'Michael Park',
+    role: 'Investor',
+    photo: 'https://i.pravatar.cc/300?img=52',
+    verified: true,
+    bio: 'Angel investor focused on B2B SaaS. $100K-$500K tickets.',
+    lookingFor: ['Early Stage Startups', 'SaaS Founders'],
+    skills: ['Investment Strategy', 'Due Diligence'],
+    matchPercentage: 75,
+    additionalSkills: 2,
+  },
+];
