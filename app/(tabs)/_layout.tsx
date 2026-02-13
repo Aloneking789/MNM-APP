@@ -1,6 +1,7 @@
 import { Tabs } from 'expo-router';
-import { Home, Users, MessageSquare, Briefcase, Plus } from 'lucide-react-native';
-import { View, StyleSheet } from 'react-native';
+import { Home, Calendar, Brain, User } from 'lucide-react-native';
+import React from 'react';
+import { Platform } from 'react-native';
 import Colors from '@/constants/colors';
 
 export default function TabLayout() {
@@ -13,74 +14,46 @@ export default function TabLayout() {
         tabBarStyle: {
           backgroundColor: Colors.white,
           borderTopWidth: 1,
-          borderTopColor: Colors.border,
-          height: 60,
-          paddingBottom: 8,
+          borderTopColor: Colors.borderLight,
           paddingTop: 8,
+          paddingBottom: Platform.OS === 'ios' ? 24 : 12,
+          height: Platform.OS === 'ios' ? 88 : 68,
         },
         tabBarLabelStyle: {
-          fontSize: 11,
+          fontSize: 12,
           fontWeight: '500',
+          marginTop: 4,
         },
       }}
     >
       <Tabs.Screen
-        name="index"
+        name="(home)"
         options={{
           title: 'Home',
-          tabBarIcon: ({ color }) => <Home size={24} color={color} />,
+          tabBarIcon: ({ color, size }) => <Home size={size} color={color} />,
         }}
       />
       <Tabs.Screen
-        name="co-founder"
+        name="appointments"
         options={{
-          title: 'Co-founder',
-          tabBarIcon: ({ color }) => <Users size={24} color={color} />,
+          title: 'Appointments',
+          tabBarIcon: ({ color, size }) => <Calendar size={size} color={color} />,
         }}
       />
       <Tabs.Screen
-        name="post"
+        name="ai-assist"
         options={{
-          title: '',
-          tabBarIcon: () => (
-            <View style={styles.floatingButton}>
-              <Plus size={28} color={Colors.white} strokeWidth={2.5} />
-            </View>
-          ),
-          tabBarLabel: () => null,
+          title: 'AI Assist',
+          tabBarIcon: ({ color, size }) => <Brain size={size} color={color} />,
         }}
       />
       <Tabs.Screen
-        name="community"
+        name="profile"
         options={{
-          title: 'Community',
-          tabBarIcon: ({ color }) => <MessageSquare size={24} color={color} />,
-        }}
-      />
-      <Tabs.Screen
-        name="startup"
-        options={{
-          title: 'Startup',
-          tabBarIcon: ({ color }) => <Briefcase size={24} color={color} />,
+          title: 'Profile',
+          tabBarIcon: ({ color, size }) => <User size={size} color={color} />,
         }}
       />
     </Tabs>
   );
 }
-
-const styles = StyleSheet.create({
-  floatingButton: {
-    width: 56,
-    height: 56,
-    borderRadius: 28,
-    backgroundColor: Colors.primary,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: -20,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 6,
-    elevation: 8,
-  },
-});

@@ -1,6 +1,6 @@
 const { getDefaultConfig } = require("expo/metro-config");
-const { withRorkMetro } = require("@rork-ai/toolkit-sdk/metro");
 
+// Use the default Expo Metro config. Removed Rork-specific wrapping per user request.
 const config = getDefaultConfig(__dirname);
 
-module.exports = withRorkMetro(config);
+module.exports = config;

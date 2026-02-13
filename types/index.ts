@@ -1,29 +1,63 @@
-export type UserRole = 'Entrepreneur' | 'Investor' | 'Student' | 'Professional' | 'Freelancer';
-
 export interface User {
   id: string;
-  name: string;
-  role: UserRole;
-  photo: string;
-  verified: boolean;
-  bio: string;
-  lookingFor: string[];
-  skills: string[];
-  matchPercentage?: number;
+  fullName: string;
+  phone: string;
+  email?: string;
+  gender: 'male' | 'female' | 'other';
+  dateOfBirth: string;
+  city: string;
+  bloodGroup?: string;
+  avatar?: string;
 }
 
-export interface Post {
+export interface Category {
   id: string;
-  user: User;
-  content: string;
-  hashtags: string[];
-  likes: number;
-  comments: number;
-  timestamp: string;
-  liked?: boolean;
+  name: string;
+  icon: string;
+  color: string;
+  description: string;
 }
 
-export interface Match extends User {
-  matchPercentage: number;
-  additionalSkills: number;
+export interface Doctor {
+  id: string;
+  name: string;
+  specialty: string;
+  categoryId: string;
+  experience: number;
+  rating: number;
+  reviewCount: number;
+  fee: number;
+  avatar: string;
+  hospital: string;
+  isOnline: boolean;
+  education: string;
+  about: string;
+  languages: string[];
+}
+
+export interface TimeSlot {
+  id: string;
+  time: string;
+  available: boolean;
+}
+
+export interface Appointment {
+  id: string;
+  doctorId: string;
+  doctor: Doctor;
+  date: string;
+  time: string;
+  type: 'online' | 'offline';
+  status: 'upcoming' | 'completed' | 'cancelled';
+  fee: number;
+  paymentStatus: 'paid' | 'pending';
+  zoomLink?: string;
+}
+
+export interface SymptomResult {
+  category: string;
+  categoryId: string;
+  confidence: number;
+  urgency: 'low' | 'medium' | 'high';
+  description: string;
 }

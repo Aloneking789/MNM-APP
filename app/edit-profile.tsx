@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -8,6 +8,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
+  Alert,
 } from 'react-native';
 import { useRouter, Stack } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -19,33 +20,35 @@ import { useApp } from '@/context/AppContext';
 const genderOptions = ['Male', 'Female', 'Other'];
 const bloodGroups = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
 
-export default function SignUpScreen() {
+export default function EditProfileScreen() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
-  const { login } = useApp();
-  const [fullName, setFullName] = useState('');
-  const [gender, setGender] = useState('');
-  const [dateOfBirth, setDateOfBirth] = useState('');
-  const [city, setCity] = useState('');
-  const [bloodGroup, setBloodGroup] = useState('');
+  const { user, updateUser } = useApp();
+
+  const [fullName, setFullName] = useState(user?.fullName || '');
+  const [gender, setGender] = useState(user?.gender ? user.gender.charAt(0).toUpperCase() + user.gender.slice(1) : '');
+  const [dateOfBirth, setDateOfBirth] = useState(user?.dateOfBirth || '');
+  const [city, setCity] = useState(user?.city || '');
+  const [bloodGroup, setBloodGroup] = useState(user?.bloodGroup || '');
   const [showGenderPicker, setShowGenderPicker] = useState(false);
   const [showBloodGroupPicker, setShowBloodGroupPicker] = useState(false);
 
   const isValid = fullName.trim() && gender && dateOfBirth && city.trim();
 
-  const handleSignUp = () => {
-    if (isValid) {
-      const userData = {
-        id: Date.now().toString(),
+  const handleSave = () => {
+    if (isValid && user) {
+      const updatedUser = {
+        ...user,
         fullName: fullName.trim(),
-        phone: '9876543210',
         gender: gender.toLowerCase() as 'male' | 'female' | 'other',
         dateOfBirth,
         city: city.trim(),
         bloodGroup: bloodGroup || undefined,
       };
-      login(userData);
-      router.replace('/(tabs)/(home)');
+      updateUser(updatedUser);
+      Alert.alert('Success', 'Profile updated successfully!', [
+        { text: 'OK', onPress: () => router.back() },
+      ]);
     }
   };
 
@@ -54,14 +57,16 @@ export default function SignUpScreen() {
       <Stack.Screen
         options={{
           headerShown: true,
-          headerTitle: '',
-          headerTransparent: true,
+          headerTitle: 'Edit Profile',
+          headerTitleStyle: { fontWeight: '600', fontSize: 17 },
+          headerStyle: { backgroundColor: Colors.background },
+          headerShadowVisible: false,
           headerLeft: () => (
             <TouchableOpacity
               onPress={() => router.back()}
               style={styles.backButton}
             >
-              <ArrowLeft size={24} color={Colors.text} />
+              <ArrowLeft size={22} color={Colors.text} />
             </TouchableOpacity>
           ),
         }}
@@ -73,16 +78,11 @@ export default function SignUpScreen() {
         <ScrollView
           contentContainerStyle={[
             styles.scrollContent,
-            { paddingTop: insets.top + 80, paddingBottom: insets.bottom + 20 },
+            { paddingBottom: insets.bottom + 20 },
           ]}
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}
         >
-          <Text style={styles.title}>Complete Profile</Text>
-          <Text style={styles.subtitle}>
-            Help us personalize your healthcare experience
-          </Text>
-
           <View style={styles.form}>
             <View style={styles.inputGroup}>
               <Text style={styles.label}>Full Name</Text>
@@ -208,21 +208,21 @@ export default function SignUpScreen() {
           </View>
 
           <TouchableOpacity
-            style={[styles.continueButton, !isValid && styles.continueButtonDisabled]}
-            onPress={handleSignUp}
+            style={[styles.saveButton, !isValid && styles.saveButtonDisabled]}
+            onPress={handleSave}
             disabled={!isValid}
             activeOpacity={0.8}
           >
             <LinearGradient
               colors={isValid ? [Colors.primary, Colors.primaryDark] : [Colors.border, Colors.border]}
-              style={styles.continueButtonGradient}
+              style={styles.saveButtonGradient}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 0 }}
             >
               <Text
-                style={[styles.continueButtonText, !isValid && styles.continueButtonTextDisabled]}
+                style={[styles.saveButtonText, !isValid && styles.saveButtonTextDisabled]}
               >
-                Complete Sign Up
+                Save Changes
               </Text>
             </LinearGradient>
           </TouchableOpacity>
@@ -235,30 +235,20 @@ export default function SignUpScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.background,
   },
   backButton: {
-    width: 44,
-    height: 44,
-    borderRadius: 12,
-    backgroundColor: Colors.background,
+    width: 40,
+    height: 40,
+    borderRadius: 10,
+    backgroundColor: Colors.white,
     alignItems: 'center',
     justifyContent: 'center',
   },
   scrollContent: {
     flexGrow: 1,
-    paddingHorizontal: 24,
-  },
-  title: {
-    fontSize: 28,
-    fontWeight: '700',
-    color: Colors.text,
-    marginBottom: 8,
-  },
-  subtitle: {
-    fontSize: 15,
-    color: Colors.textSecondary,
-    marginBottom: 32,
+    paddingHorizontal: 20,
+    paddingTop: 20,
   },
   form: {
     gap: 20,
@@ -279,7 +269,7 @@ const styles = StyleSheet.create({
   inputWrapper: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: Colors.background,
+    backgroundColor: Colors.white,
     borderRadius: 12,
     paddingHorizontal: 16,
     borderWidth: 1,
@@ -327,7 +317,7 @@ const styles = StyleSheet.create({
     color: Colors.primary,
     fontWeight: '600',
   },
-  continueButton: {
+  saveButton: {
     borderRadius: 14,
     overflow: 'hidden',
     shadowColor: Colors.primary,
@@ -336,20 +326,20 @@ const styles = StyleSheet.create({
     shadowRadius: 10,
     elevation: 6,
   },
-  continueButtonDisabled: {
+  saveButtonDisabled: {
     shadowOpacity: 0,
     elevation: 0,
   },
-  continueButtonGradient: {
+  saveButtonGradient: {
     paddingVertical: 16,
     alignItems: 'center',
   },
-  continueButtonText: {
+  saveButtonText: {
     color: Colors.white,
     fontSize: 17,
     fontWeight: '600',
   },
-  continueButtonTextDisabled: {
+  saveButtonTextDisabled: {
     color: Colors.textMuted,
   },
 });

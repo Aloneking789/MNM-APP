@@ -1,0 +1,88 @@
+import { Category } from '@/types';
+
+export const categories: Category[] = [
+  {
+    id: '1',
+    name: 'General Physician',
+    icon: 'Stethoscope',
+    color: '#00A896',
+    description: 'Common health issues, fever, cold, etc.',
+  },
+  {
+    id: '2',
+    name: 'Gynecology',
+    icon: 'Heart',
+    color: '#FF6B9D',
+    description: "Women's health and reproductive care",
+  },
+  {
+    id: '3',
+    name: 'Pediatrics',
+    icon: 'Baby',
+    color: '#5E60CE',
+    description: 'Child health and development',
+  },
+  {
+    id: '4',
+    name: 'Dermatology',
+    icon: 'Sparkles',
+    color: '#F59E0B',
+    description: 'Skin, hair, and nail problems',
+  },
+  {
+    id: '5',
+    name: 'Orthopedics',
+    icon: 'Bone',
+    color: '#10B981',
+    description: 'Bone, joint, and muscle issues',
+  },
+  {
+    id: '6',
+    name: 'Cardiology',
+    icon: 'HeartPulse',
+    color: '#EF4444',
+    description: 'Heart and cardiovascular health',
+  },
+  {
+    id: '7',
+    name: 'Neurology',
+    icon: 'Brain',
+    color: '#8B5CF6',
+    description: 'Brain and nervous system',
+  },
+  {
+    id: '8',
+    name: 'Psychiatry',
+    icon: 'MessageCircleHeart',
+    color: '#06B6D4',
+    description: 'Mental health and wellness',
+  },
+  {
+    id: '9',
+    name: 'ENT',
+    icon: 'Ear',
+    color: '#EC4899',
+    description: 'Ear, nose, and throat',
+  },
+  {
+    id: '10',
+    name: 'Ophthalmology',
+    icon: 'Eye',
+    color: '#3B82F6',
+    description: 'Eye care and vision',
+  },
+  {
+    id: '11',
+    name: 'Dentistry',
+    icon: 'SmilePlus',
+    color: '#14B8A6',
+    description: 'Dental and oral health',
+  },
+  {
+    id: '12',
+    name: 'Gastroenterology',
+    icon: 'Pill',
+    color: '#F97316',
+    description: 'Digestive system health',
+  },
+];

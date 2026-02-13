@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Match My Co-Founder",
-    "slug": "match-my-co-founder",
+    "name": "PatientCare App",
+    "slug": "patientcare-app-c0cipmk",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -15,14 +15,14 @@
     },
     "ios": {
       "supportsTablet": false,
-      "bundleIdentifier": "app.rork.match-my-co-founder"
+      "bundleIdentifier": "app.rork.patientcare-app-c0cipmk"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "app.rork.match_my_co_founder"
+      "package": "app.rork.patientcare_app_c0cipmk"
     },
     "web": {
       "favicon": "./assets/images/favicon.png"
